@@ -325,6 +325,16 @@ jobs:
         shell: bash
         run: echo "SODIUM_LIB_DIR=$VCPKG_ROOT/installed/${{ matrix.job.vcpkg-triplet }}/lib" >> "$GITHUB_ENV"
 
+      - name: Patch APP_NAME and Server Config in hbb_common
+        shell: bash
+        run: |
+          sed -i 's/"RustDesk"/"MishooDesk"/g' libs/hbb_common/src/config.rs
+          sed -i 's|"rs-ny.rustdesk.com"|"support.mishoosoft.com"|g' libs/hbb_common/src/config.rs
+          sed -i 's|pub const RS_PUB_KEY: &str = ".*";|pub const RS_PUB_KEY: \&str = "EqQJTq8VlmOADYi1MrMZ0WB4f3cGxTKuAC2QOl+qLCo=";|g' libs/hbb_common/src/config.rs
+
+      - name: Build rustdesk
+        run: |
+          # Windows: build RustDesk
       - name: Build rustdesk
         run: |
           # Windows: build RustDesk
