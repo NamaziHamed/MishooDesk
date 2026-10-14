@@ -331,10 +331,7 @@ jobs:
           sed -i 's/"RustDesk"/"MishooDesk"/g' libs/hbb_common/src/config.rs
           sed -i 's|"rs-ny.rustdesk.com"|"support.mishoosoft.com"|g' libs/hbb_common/src/config.rs
           sed -i 's|pub const RS_PUB_KEY: &str = ".*";|pub const RS_PUB_KEY: \&str = "EqQJTq8VlmOADYi1MrMZ0WB4f3cGxTKuAC2QOl+qLCo=";|g' libs/hbb_common/src/config.rs
-
-      - name: Build rustdesk
-        run: |
-          # Windows: build RustDesk
+          
       - name: Build rustdesk
         run: |
           # Windows: build RustDesk
