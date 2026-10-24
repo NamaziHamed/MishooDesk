@@ -87,7 +87,10 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         ),
       Align(
         alignment: Alignment.center,
-        child: loadLogo(),
+        child: InkWell(
+          onTap: () => launchUrl(Uri.parse('https://yourwebsite.com')), // Insert your URL
+          child: loadLogo(),
+        ),
       ),
       buildTip(context),
       if (!isOutgoingOnly) buildIDBoard(context),
@@ -428,10 +431,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
   }
 
   Widget buildHelpCards(String updateUrl) {
-    if (!bind.isCustomClient() &&
-        updateUrl.isNotEmpty &&
-        !isCardClosed &&
-        bind.mainUriPrefixSync().contains('rustdesk')) {
+    if false {
       final isToUpdate = (isWindows || isMacOS) && bind.mainIsInstalled();
       String btnText = isToUpdate ? 'Update' : 'Download';
       GestureTapCallback onPressed = () async {
