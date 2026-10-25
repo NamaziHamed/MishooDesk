@@ -88,7 +88,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
       Align(
         alignment: Alignment.center,
         child: InkWell(
-          onTap: () => launchUrl(Uri.parse('https://yourwebsite.com')), // Insert your URL
+          onTap: () => launchUrl(Uri.parse('https://mishoosoft.com')),
           child: loadLogo(),
         ),
       ),
