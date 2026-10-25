@@ -363,7 +363,7 @@ void _runApp(
       title: title,
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,
-      themeMode: themeMode,
+      themeMode: themeMode.darkTheme,
       home: home,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
