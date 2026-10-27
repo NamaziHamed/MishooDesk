@@ -361,7 +361,7 @@ void _runApp(
       navigatorKey: globalKey,
       debugShowCheckedModeBanner: false,
       title: title,
-      theme: MyTheme.lightTheme,
+      theme: MyTheme.darkTheme,
       darkTheme: MyTheme.darkTheme,
       themeMode: ThemeMode.dark,
       home: home,
