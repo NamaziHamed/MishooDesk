@@ -230,9 +230,11 @@ void runMultiWindow(
       exit(0);
   }
   _runApp(
-    title,
-    widget,
-    MyTheme.currentThemeMode(),
+      title: title,
+      theme: MyTheme.darkTheme,
+      darkTheme: MyTheme.darkTheme,
+      themeMode: ThemeMode.dark,
+      home: home,
   );
   // we do not hide titlebar on win7 because of the frame overflow.
   if (kUseCompatibleUiMode) {
@@ -498,14 +500,14 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           title: isWeb
               ? '${bind.mainGetAppNameSync()} Web Client V2 (Preview)'
               : bind.mainGetAppNameSync(),
-          theme: MyTheme.lightTheme,
-          darkTheme: MyTheme.darkTheme,
-          themeMode: MyTheme.currentThemeMode(),
-          home: isDesktop
-              ? const DesktopTabPage()
-              : isWeb
-                  ? WebHomePage()
-                  : HomePage(),
+          theme: MyTheme.darkTheme,
+                darkTheme: MyTheme.darkTheme,
+                themeMode: ThemeMode.dark,
+                home: isDesktop
+                    ? const DesktopTabPage()
+                    : isWeb
+                        ? WebHomePage()
+                        : HomePage(),
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
