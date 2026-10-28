@@ -229,12 +229,10 @@ void runMultiWindow(
       // no such appType
       exit(0);
   }
-  _runApp(
-      title: title,
-      theme: MyTheme.darkTheme,
-      darkTheme: MyTheme.darkTheme,
-      themeMode: ThemeMode.dark,
-      home: home,
+_runApp(
+    title,
+    widget,
+    ThemeMode.dark,
   );
   // we do not hide titlebar on win7 because of the frame overflow.
   if (kUseCompatibleUiMode) {
