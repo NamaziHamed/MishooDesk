@@ -576,7 +576,7 @@ class MyTheme {
     ],
   );
 
-  static ThemeMode getThemeModePreference() {
+static ThemeMode getThemeModePreference() {
     return ThemeMode.dark;
   }
 
@@ -597,7 +597,7 @@ class MyTheme {
   }
 
   static ThemeMode currentThemeMode() {
-return ThemeMode.dark;
+    return ThemeMode.dark;
   }
 
   static ColorThemeExtension color(BuildContext context) {
@@ -608,9 +608,11 @@ return ThemeMode.dark;
     return Theme.of(context).extension<TabbarTheme>()!;
   }
 
-static ThemeMode themeModeFromString(String v) {
+  static ThemeMode themeModeFromString(String v) {
     return ThemeMode.dark;
   }
+}
+
 
 extension ParseToString on ThemeMode {
   String toShortString() {
