@@ -429,7 +429,10 @@ class MyTheme {
         : mobileTextButtonTheme,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: MyTheme.accent,
+        backgroundColor: Color(0xFF112A2E), // High-contrast dark slate against the cyan canvas
+        foregroundColor: Colors.white,
+        disabledForegroundColor: Colors.white70,
+        disabledBackgroundColor: Colors.black26, // Darker disabled state for visibility
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -472,7 +475,7 @@ class MyTheme {
     useMaterial3: false,
     brightness: Brightness.dark,
     hoverColor: Color(0xFF1B3B40),
-    scaffoldBackgroundColor: Color(0xFF112A2E),
+    scaffoldBackgroundColor: Color(0xFF5BC4BF),
     dialogBackgroundColor: Color(0xFF1B3B40),
     appBarTheme: AppBarTheme(
       shadowColor: Colors.transparent,
