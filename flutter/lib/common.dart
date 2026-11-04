@@ -563,10 +563,10 @@ class MyTheme {
         style: MenuStyle(
             backgroundColor: MaterialStatePropertyAll(Color(0xFF121212)))),
 colorScheme: ColorScheme.dark(
-      primary: Color(0xFF112A2E), // Changed from 0xFF73D2CE
-      secondary: accent,
-      background: Color(0xFF5BC4BF), // Synced with the new cyan scaffoldBackgroundColor
-    ),
+  primary: Color(0xFF73D2CE),
+  secondary: accent,
+  background: Color(0xFF24252B),
+),
     popupMenuTheme: PopupMenuThemeData(
         shape: RoundedRectangleBorder(
       side: BorderSide(color: Colors.white24),
