@@ -562,10 +562,10 @@ class MyTheme {
     menuBarTheme: MenuBarThemeData(
         style: MenuStyle(
             backgroundColor: MaterialStatePropertyAll(Color(0xFF121212)))),
-colorScheme: ColorScheme.dark(
-  primary: Color(0xFF73D2CE),
+colorScheme: const ColorScheme.dark(
+  primary: Color(0xFF5BC4BF), 
   secondary: accent,
-  background: Color(0xFF24252B),
+  background: Color(0xFF121212),
 ),
     popupMenuTheme: PopupMenuThemeData(
         shape: RoundedRectangleBorder(
