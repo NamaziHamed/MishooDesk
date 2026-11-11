@@ -249,16 +249,16 @@ class MyTheme {
   MyTheme._();
 
   static const Color grayBg = Color(0xFFEFEFF2);
-  static const Color accent = Color(0xFF112A2E);
-  static const Color accent50 = Color(0x77112A2E);
-  static const Color accent80 = Color(0xAA112A2E);
+  static const Color accent = Color(0xFF5BC4BF); // Company standard cyan
+  static const Color accent50 = Color(0x775BC4BF);
+  static const Color accent80 = Color(0xAA5BC4BF);
   static const Color canvasColor = Color(0xFF212121);
   static const Color border = Color(0xFFCCCCCC);
-  static const Color idColor = Color(0xFF112A2E);
+  static const Color idColor = Color(0xFF5BC4BF);
   static const Color darkGray = Color.fromARGB(255, 148, 148, 148);
   static const Color cmIdColor = Color(0xFF21790B); 
   static const Color dark = Colors.black87;
-  static const Color button = Color(0xFF112A2E);
+  static const Color button = Color(0xFF5BC4BF); // Cyan buttons
   static const Color hoverBorder = Color(0xFF999999);
 
   // ListTile
@@ -474,9 +474,9 @@ class MyTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: false,
     brightness: Brightness.dark,
-    hoverColor: Color(0xFF1B3B40),
-    scaffoldBackgroundColor: Color(0xFF5BC4BF),
-    dialogBackgroundColor: Color(0xFF1B3B40),
+    hoverColor: Color(0xFF2C2D35),
+    scaffoldBackgroundColor: Color(0xFF121212), // Darkish black scaffold
+    dialogBackgroundColor: Color(0xFF24252B),
     appBarTheme: AppBarTheme(
       shadowColor: Colors.transparent,
     ),
@@ -535,9 +535,9 @@ class MyTheme {
         : mobileTextButtonTheme,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: MyTheme.accent,
-        foregroundColor: Colors.white,
-        disabledForegroundColor: Colors.white70,
+        backgroundColor: MyTheme.accent, // 0xFF5BC4BF
+        foregroundColor: Colors.black87, // Dark text on cyan buttons for legibility
+        disabledForegroundColor: Colors.white38,
         disabledBackgroundColor: Colors.white10,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -562,11 +562,11 @@ class MyTheme {
     menuBarTheme: MenuBarThemeData(
         style: MenuStyle(
             backgroundColor: MaterialStatePropertyAll(Color(0xFF121212)))),
-colorScheme: const ColorScheme.dark(
-  primary: Color(0xFF5BC4BF), 
-  secondary: accent,
-  background: Color(0xFF121212),
-),
+    colorScheme: ColorScheme.dark(
+      primary: MyTheme.accent, // 0xFF5BC4BF
+      secondary: MyTheme.accent,
+      background: Color(0xFF24252B), // Left pane & surface background
+    ),
     popupMenuTheme: PopupMenuThemeData(
         shape: RoundedRectangleBorder(
       side: BorderSide(color: Colors.white24),
