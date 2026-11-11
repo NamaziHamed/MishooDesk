@@ -93,8 +93,30 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         ),
       ),
       buildTip(context),
-      if (!isOutgoingOnly) buildIDBoard(context),
-      if (!isOutgoingOnly) buildPasswordBoard(context),
+if (!isOutgoingOnly)
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          padding: const EdgeInsets.fromLTRB(14, 12, 10, 12),
+          decoration: BoxDecoration(
+            color: const Color(0xFF5BC4BF), // Unified 5bc4bf ID + Password card
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black38,
+                blurRadius: 6,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildIDBoard(context),
+              const Divider(color: Colors.black26, height: 16, thickness: 1),
+              buildPasswordBoard(context),
+            ],
+          ),
+        ),
       FutureBuilder<Widget>(
         future: Future.value(
             Obx(() => buildHelpCards(stateGlobal.updateUrl.value))),
@@ -190,66 +212,53 @@ class _DesktopHomePageState extends State<DesktopHomePage>
 
   buildIDBoard(BuildContext context) {
     final model = gFFI.serverModel;
-    return Container(
-      margin: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 5),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: const Color(0xFF5BC4BF), // Solid Cyan background
-        borderRadius: BorderRadius.circular(12), // Card style rounded corners
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black26, 
-            blurRadius: 4, 
-            offset: Offset(0, 2)
-          )
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 25,
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 translate("ID"),
                 style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.black54, // Dark text forced
+                  fontSize: 13,
                   fontWeight: FontWeight.w600,
+                  color: Colors.black54,
                 ),
               ),
-              buildPopupMenu(context)
+              buildPopupMenu(context),
             ],
           ),
-          const SizedBox(height: 4),
-          GestureDetector(
-            onDoubleTap: () {
-              Clipboard.setData(ClipboardData(text: model.serverId.text));
-              showToast(translate("Copied"));
-            },
-            child: TextFormField(
-              controller: model.serverId,
-              readOnly: true,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.zero,
-                isDense: true,
-              ),
-              style: const TextStyle(
-                fontSize: 26,
-                letterSpacing: 2,
-                color: Colors.black87, // Dark text forced
-                fontWeight: FontWeight.bold,
-              ),
-            ).workaroundFreezeLinuxMint(),
-          )
-        ],
-      ),
+        ),
+        GestureDetector(
+          onDoubleTap: () {
+            Clipboard.setData(ClipboardData(text: model.serverId.text));
+            showToast(translate("Copied"));
+          },
+          child: TextFormField(
+            controller: model.serverId,
+            readOnly: true,
+            decoration: const InputDecoration(
+              filled: false, // Prevents dark theme input fill box
+              border: InputBorder.none,
+              isDense: true,
+              contentPadding: EdgeInsets.only(top: 6, bottom: 2),
+            ),
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ).workaroundFreezeLinuxMint(),
+        ),
+      ],
     );
   }
-  
- Widget buildPopupMenu(BuildContext context) {
+
+  Widget buildPopupMenu(BuildContext context) {
     RxBool hover = false.obs;
     return InkWell(
       onTap: DesktopTabPage.onAddSetting,
@@ -257,14 +266,12 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         message: translate('Settings'),
         child: Obx(
           () => CircleAvatar(
-            radius: 15,
-            backgroundColor: hover.value
-                ? Colors.black12
-                : Colors.transparent,
+            radius: 14,
+            backgroundColor: hover.value ? Colors.black12 : Colors.transparent,
             child: Icon(
               Icons.more_vert_outlined,
               size: 20,
-              color: hover.value ? Colors.black87 : Colors.black54, // Forced dark icons
+              color: hover.value ? Colors.black87 : Colors.black54,
             ),
           ),
         ),
@@ -272,7 +279,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
       onHover: (value) => hover.value = value,
     );
   }
-  
+
   buildPasswordBoard(BuildContext context) {
     return ChangeNotifierProvider.value(
         value: gFFI.serverModel,
@@ -286,101 +293,86 @@ class _DesktopHomePageState extends State<DesktopHomePage>
   buildPasswordBoard2(BuildContext context, ServerModel model) {
     RxBool refreshHover = false.obs;
     RxBool editHover = false.obs;
-    final textColor = Theme.of(context).textTheme.titleLarge?.color;
     final showOneTime = model.approveMode != 'click' &&
         model.verificationMethod != kUsePermanentPassword;
-    return Container(
-      margin: EdgeInsets.only(left: 20.0, right: 16, top: 13, bottom: 13),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.baseline,
-        textBaseline: TextBaseline.alphabetic,
-        children: [
-          Container(
-            width: 2,
-            height: 52,
-            decoration: BoxDecoration(color: MyTheme.accent),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AutoSizeText(
+          translate("One-time Password"),
+          style: const TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            color: Colors.black54,
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 7),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AutoSizeText(
-                    translate("One-time Password"),
-                    style: TextStyle(
-                        fontSize: 14, color: textColor?.withOpacity(0.5)),
-                    maxLines: 1,
+          maxLines: 1,
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onDoubleTap: () {
+                  if (showOneTime) {
+                    Clipboard.setData(
+                        ClipboardData(text: model.serverPasswd.text));
+                    showToast(translate("Copied"));
+                  }
+                },
+                child: TextFormField(
+                  controller: model.serverPasswd,
+                  readOnly: true,
+                  decoration: const InputDecoration(
+                    filled: false, // Prevents dark theme input fill box
+                    border: InputBorder.none,
+                    isDense: true,
+                    contentPadding: EdgeInsets.only(top: 8, bottom: 4),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onDoubleTap: () {
-                            if (showOneTime) {
-                              Clipboard.setData(
-                                  ClipboardData(text: model.serverPasswd.text));
-                              showToast(translate("Copied"));
-                            }
-                          },
-                          child: TextFormField(
-                            controller: model.serverPasswd,
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding:
-                                  EdgeInsets.only(top: 14, bottom: 10),
-                            ),
-                            style: TextStyle(fontSize: 15),
-                          ).workaroundFreezeLinuxMint(),
-                        ),
-                      ),
-                      if (showOneTime)
-                        AnimatedRotationWidget(
-                          onPressed: () => bind.mainUpdateTemporaryPassword(),
-                          child: Tooltip(
-                            message: translate('Refresh Password'),
-                            child: Obx(() => RotatedBox(
-                                quarterTurns: 2,
-                                child: Icon(
-                                  Icons.refresh,
-                                  color: refreshHover.value
-                                      ? textColor
-                                      : Color(0xFFDDDDDD),
-                                  size: 22,
-                                ))),
-                          ),
-                          onHover: (value) => refreshHover.value = value,
-                        ).marginOnly(right: 8, top: 4),
-                      if (!bind.isDisableSettings())
-                        InkWell(
-                          child: Tooltip(
-                            message: translate('Change Password'),
-                            child: Obx(
-                              () => Icon(
-                                Icons.edit,
-                                color: editHover.value
-                                    ? textColor
-                                    : Color(0xFFDDDDDD),
-                                size: 22,
-                              ).marginOnly(right: 8, top: 4),
-                            ),
-                          ),
-                          onTap: () => DesktopSettingPage.switch2page(
-                              SettingsTabKey.safety),
-                          onHover: (value) => editHover.value = value,
-                        ),
-                    ],
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
                   ),
-                ],
+                ).workaroundFreezeLinuxMint(),
               ),
             ),
-          ),
-        ],
-      ),
+            if (showOneTime)
+              AnimatedRotationWidget(
+                onPressed: () => bind.mainUpdateTemporaryPassword(),
+                child: Tooltip(
+                  message: translate('Refresh Password'),
+                  child: Obx(() => RotatedBox(
+                      quarterTurns: 2,
+                      child: Icon(
+                        Icons.refresh,
+                        color: refreshHover.value
+                            ? Colors.black87
+                            : Colors.black54,
+                        size: 20,
+                      ))),
+                ),
+                onHover: (value) => refreshHover.value = value,
+              ).marginOnly(right: 6),
+            if (!bind.isDisableSettings())
+              InkWell(
+                child: Tooltip(
+                  message: translate('Change Password'),
+                  child: Obx(
+                    () => Icon(
+                      Icons.edit,
+                      color: editHover.value ? Colors.black87 : Colors.black54,
+                      size: 20,
+                    ).marginOnly(right: 4),
+                  ),
+                ),
+                onTap: () =>
+                    DesktopSettingPage.switch2page(SettingsTabKey.safety),
+                onHover: (value) => editHover.value = value,
+              ),
+          ],
+        ),
+      ],
     );
   }
-
   buildTip(BuildContext context) {
     final isOutgoingOnly = bind.isOutgoingOnly();
     return Padding(
